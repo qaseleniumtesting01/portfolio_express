@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    /> -->
+    <!-- <link rel="stylesheet" href="css/main.css" /> -->
+    <!-- <script
+      src="https://kit.fontawesome.com/42fe52b11a.js"
+      crossorigin="anonymous"
+    ></script> -->
+    <title>Gabriel Ladzaretti</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav
+      id="navbar"
+      class="
+        navbar navbar-expand-md
+        py-1
+        fixed-top
+        quicksand-font
+        justify-content-center
+        visually-hidden
+      "
+    >
+      <div class="px-4 container">
+        <a href="#" class="navbar-brand"
+          ><span class="align-middle">Gabriel Ladzaretti</span></a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navmenu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navmenu">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a href="#" class="nav-link px-3 grow">Home</a>
+            </li>
+
+            <li class="nav-item">
+              <a href="#about" class="nav-link px-3 grow">About</a>
+            </li>
+            <li class="nav-item">
+              <a href="#projects" class="nav-link px-3 grow">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a href="#contact" class="nav-link px-3 grow">Contact </a>
+            </li>
+            <!-- <li class="nav-item btn-group align-self-center">
+              <a
+                href="#"
+                class="nav-link px-3 dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                >Theme</a
+              >
+              <ul class="dropdown-menu text-center">
+                <li>
+                  <a class="nav-link change-color" href="#" data-color="#2a9d8f"
+                    >Jungle green</a
+                  >
+                </li>
+                <li>
+                  <a class="nav-link change-color" href="#" data-color="#f4a261"
+                    >Sandy brown</a
+                  >
+                </li>
+                <li>
+                  <a class="nav-link change-color" href="#" data-color="#006D77"
+                    >Pine Green</a
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a
+                    class="nav-link text-center change-color"
+                    href="#"
+                    data-color="#ea4335"
+                    >Default</a
+                  >
+                </li>
+              </ul>
+            </li> -->
+          </ul>
+          <div class="ms-auto navbar-nav justify-content-center">
+            <div id="social-icons" class="justify-content-center">
+              <a href="https://github.com/ladzaretti" target="_blank"
+                ><i class="bi bi-github mx-1 nav-link px-3 grow"></i
+              ></a>
+              <a
+                href="https://www.linkedin.com/in/gabriel-ladzaretti
+              "
+                target="_blank"
+                ><i class="bi bi-linkedin mx-1 nav-link px-3 grow"></i
+              ></a>
+              <a href="mailto:gabriel.ladzaretti@gmail.com"
+                ><i class="bi bi-envelope-open-fill mx-1 nav-link px-3 grow"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Showcase -->
+    <main
+      id="showcase"
+      class="
+        quicksand-font
+        view-port-full
+        d-flex
+        text-center
+        justify-content-center
+      "
+    >
+      <div
+        class="d-flex clickable align-items-center text-dark"
+        data-bs-toggle="tooltip"
+        title="Click to change background color"
+      >
+        <div class="back-title p-5 m-auto">
+          <h1 class="pb-1">
+            Gabriel <br />
+            Ladzaretti
+          </h1>
+          <h2>
+            <span
+              >Full Stack <br />
+              Developer</span
+            >
+          </h2>
+        </div>
+      </div>
+      <div class="terminal-container jetbrains-mono">
+        <div class="terminal terminal-shadow">
+          <div class="top">
+            <div class="btns">
+              <span class="circle red"></span>
+              <span class="circle yellow"></span>
+              <span class="circle green"></span>
+            </div>
+            <div class="title"></div>
+          </div>
+          <p class="body text-start">
+            <span>Desktop:~gbi$</span
+            ><span class="typewriter" style="white-space: pre-wrap"></span
+            ><span class="cursor">_</span>
+            <!-- <script src="js/exec.typewriter.js"></script>
+            <script>
+              typewriterFetch(
+                ".typewriter",
+                "assets/showcase-text.txt",
+                40,
+                3200
+              );
+            </script> -->
+          </p>
+        </div>
+      </div>
+
+      <div class="dock">
+        <li id="terminal-icon" class="li-1 li-open">
+          <div class="name">Terminal</div>
+          <img class="ico" src="./assets/png/terminal-app-icon.png" alt="" />
+        </li>
+        <li class="li-2">
+          <div class="name">Github</div>
+          <a href="https://github.com/ladzaretti" target="_blank"
+            ><img class="ico" src="./assets/png/github-sq.png" alt=""
+          /></a>
+        </li>
+        <li class="li-3">
+          <div class="name">Linkedin</div>
+          <a
+            href="https://www.linkedin.com/in/gabriel-ladzaretti"
+            target="_blank"
+          >
+            <img
+              class="ico"
+              src="./assets/png/Linkedin-logo-on-transparent-Background-PNG-.png"
+              alt=""
+            />
+          </a>
+        </li>
+        <li class="li-4">
+          <div class="name">Contact Me</div>
+          <a href="" data-bs-toggle="modal" data-bs-target="#contact-modal"
+            ><img class="ico" src="./assets/png/mail.png" alt=""
+          /></a>
+        </li>
+        <li class="li-5">
+          <div class="name">Dark mode toggle</div>
+          <img
+            id="dark-mode-toggler"
+            class="ico"
+            data-dark_mode_on="true"
+            src="./assets/png/dark-mode.png"
+            alt=""
+          />
+        </li>
+      </div>
+    </main>
+
+    <!-- About  -->
+    <section id="about" class="view-port-full">
+      <div class="quicksand-font pt-5 justify-content-center m-auto">
+        <div class="pt-5 pb-3 text-center">
+          <div>
+            <h1><a href="#about">About</a></h1>
+          </div>
+          <!-- <div class="text-center">
+            <h5 class="m-auto">Gabriel Ladzaretti</h5>
+          </div> -->
+        </div>
+        <div class="p-5 pt-3 m-auto pb-3">
+          <h5 class="m-auto text-center">
+            <!-- 👋 I'm Gabi an enthusiastic, fast and thorough learner, fascinated
+            about computer science and technology. -->
+            <hr />
+            Being driven by the love of knowledge, <br />
+            I consider my best skill to be - <br />
+            The ability to grasp & apply new concepts quickly.
+            <br />
+            <hr />
+          </h5>
+        </div>
+        <div
+          id="about-accordion"
+          class="container about-content p-5 pt-3 m-auto"
+        >
+          <div class="accordion accordion-flush">
+            <!-- item1 -->
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#item1"
+                >
+                  🎓 Education
+                </button>
+              </h2>
+              <div
+                id="item1"
+                class="accordion-collapse show"
+                data-bs-parent="#about-accordion"
+              >
+                <div class="accordion-body">
+                  Computer Science (BSc) graduate.<br />
+                  <span> The Open University of Israel, GPA 89</span>
+                  (2018-2021).<br />
+                  <span>Dean’s list</span> for the academic year of 2019-2020.
+                </div>
+              </div>
+            </div>
+            <!-- item2 -->
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#item2"
+                >
+                  💻 Languages & Frameworks
+                </button>
+              </h2>
+              <div
+                id="item2"
+                class="accordion-collapse collapse"
+                data-bs-parent="#about-accordion"
+              >
+                <div class="accordion-body">
+                  Javascript, <span>React.js</span>, Node.js,
+                  <span>Express.js</span>. <br />HTML, <span>Bootstrap 5</span>,
+                  css ,<span>Sass</span>,
+                  <br />
+                  <span>C</span>, Python,
+                  <br />
+                  <span>Java</span>
+                  <br />
+                </div>
+              </div>
+            </div>
+            <!-- item3 -->
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#item3"
+                >
+                  💾 Databases
+                </button>
+              </h2>
+              <div
+                id="item3"
+                class="accordion-collapse collapse"
+                data-bs-parent="#about-accordion"
+              >
+                <div class="accordion-body">
+                  <span>MongoDB</span>. <br />
+                  mySQL, PostgreSQL, Sequelize. <br />
+                  hibernate.
+                </div>
+              </div>
+            </div>
+            <!-- item4 -->
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#item4"
+                >
+                  🔨 Tools
+                </button>
+              </h2>
+              <div
+                id="item4"
+                class="accordion-collapse collapse"
+                data-bs-parent="#about-accordion"
+              >
+                <div class="accordion-body">
+                  Linux, Git. <br />
+                  npm, yarn, webpack.
+                  <br />
+                  VS code, intellij, pycharm. <br />
+                </div>
+              </div>
+            </div>
+            <!-- item5 -->
+            <!-- <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#item5"
+                >
+                  📚 Skills
+                </button>
+              </h2>
+              <div
+                id="item5"
+                class="accordion-collapse collapse"
+                data-bs-parent="#about-accordion"
+              >
+                <div class="accordion-body">
+                  Data structures, Algorithms. <br />
+                  Operating systes. <br />
+                  OOP, Functional Programming.
+                </div>
+              </div>
+            </div> -->
+            <!-- 💻📫👀🌱👋🌌📚📦Hi, I’m @ladzaretti ... -->
+            <!-- item6 -->
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#item6"
+                >
+                  📦 What i bring with me
+                </button>
+              </h2>
+              <div
+                id="item6"
+                class="accordion-collapse collapse"
+                data-bs-parent="#about-accordion"
+              >
+                <div class="accordion-body">
+                  Can do attitude, <br />
+                  Team-minded & Collaborative approach, <br />
+                  High efficiency, <br />
+                  High motivation. <br />
+                  <br />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- projects -->
+    <section id="projects" class="py-5 view-port-full">
+      <div class="container quicksand-font">
+        <div class="pt-5 pb-3 text-center">
+          <div>
+            <h1><a href="#projects">Projects</a></h1>
+          </div>
+        </div>
+        <div class="row g-4 py-5 justify-content-center">
+          <div class="col-md-6 col-lg-4">
+            <div class="card card-grow">
+              <video
+                src="./assets/webm/opt_win.webm"
+                autoplay
+                loop
+                muted
+                class="card-img-top"
+              ></video>
+
+              <div class="card-body text-start">
+                <h6>Python | Xlib/libX11 library</h6>
+
+                <hr />
+                <h3 class="card-title mb-3">Linux Window Manager</h3>
+                <p class="card-text">
+                  Enables snapping user interface windows to a pre-defined grid
+                  system.
+                  <br /><br />
+                  Interfaces with various Linux desktop environment such as:
+                  Gnome, unity, KDE etc.
+                </p>
+                <!-- <div class="pb-2">
+                  * Visual artifacts due to gif optimization.
+                </div> -->
+                <div class="d-flex justify-content-center mx-auto">
+                  <div class="text-center rotate">
+                    <a
+                      href="https://github.com/ladzaretti/wintile"
+                      target="_blank"
+                      ><h5><i class="bi bi-github mx-1"></i></h5
+                    ></a>
+                  </div>
+                  <div class="text-center rotate">
+                    <a
+                      href="https://www.youtube.com/watch?v=Pr1GlDAOEIA"
+                      target="_blank"
+                      ><h5><i class="bi bi-youtube mx-1"></i></h5
+                    ></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card card-grow">
+              <video
+                src="./assets/webm/portfolio.webm"
+                autoplay
+                loop
+                muted
+                class="card-img-top"
+              ></video>
+              <div class="card-body text-start">
+                <h6>Javascript | HTML | CSS | Sass | Bootstrap 5 | Webpack</h6>
+                <hr />
+                <h3 class="card-title mb-3">Responsive Portfolio Website</h3>
+                <p class="card-text">
+                  User interactable Portfolio website, implements various
+                  bootstrap components along side custom made features and
+                  animations.
+                </p>
+                <div class="text-center rotate">
+                  <h5>
+                    <a
+                      href="https://github.com/ladzaretti/ladzaretti.github.io"
+                      target="_blank"
+                      ><i class="bi bi-github mx-1"></i
+                    ></a>
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card card-grow">
+              <video
+                src="./assets/webm/java.webm"
+                autoplay
+                loop
+                muted
+                class="card-img-top bg-info"
+              ></video>
+              <div class="card-body">
+                <h6>Java | hibernate | Java-RMI | MySQL | JavaFX | Intellij</h6>
+                <hr />
+                <h3 class="card-title mb-3">
+                  Java Server-Client Game Hosting Interface
+                </h3>
+                <p class="card-text">
+                  Multi-threaded client-server infrastructure capable of hosting
+                  various turn based games using two way RMI communication.
+                  including match making, user authentication, a database, chat
+                  and more.
+                </p>
+                <div class="text-center rotate">
+                  <h5>
+                    <a
+                      href="https://github.com/ladzaretti/javaRMI-srv-client-game-hosting"
+                      target="_blank"
+                      ><i class="bi bi-github mx-1"></i
+                    ></a>
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card card-grow">
+              <video
+                src="./assets/webm/assembler.webm"
+                autoplay
+                loop
+                muted
+                class="card-img-top"
+              ></video>
+              <div class="card-body">
+                <h6>C lang</h6>
+                <hr />
+                <h3 class="card-title mb-3">Assembler</h3>
+                <p class="card-text">
+                  Assember for a proprietary Assembly language, whos supports 16
+                  instructions, external symbols, imports and more. <br /><br />
+                  The assembler is of type "Multi-pass assemblers", as it parses
+                  the input in three passes. <br />
+                  The output consists of: machine code file (.ob), entries file
+                  (.ent) and external symbols file (.ext).
+                </p>
+                <div class="text-center rotate">
+                  <h5>
+                    <a
+                      href="https://github.com/ladzaretti/Assembler"
+                      target="_blank"
+                      ><i class="bi bi-github mx-1"></i
+                    ></a>
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card card-grow">
+              <video
+                src="./assets/webm/Ubuntu64-bit-VMwareWorkstation15.webm"
+                autoplay
+                loop
+                muted
+                class="card-img-top"
+              ></video>
+              <div class="card-body">
+                <h6>C lang</h6>
+                <hr />
+                <h3 class="card-title mb-3">xv6 File system expansion</h3>
+                <p class="card-text">
+                  Added thread level context switching and large file support to
+                  MIT's xv6 file system.
+                </p>
+                <div class="text-center rotate">
+                  <h5>
+                    <a href="https://github.com/ladzaretti/xv6" target="_blank"
+                      ><i class="bi bi-github mx-1"></i
+                    ></a>
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card card-grow">
+              <video
+                src="./assets/webm/bg_fg.webm"
+                autoplay
+                loop
+                muted
+                class="card-img-top"
+              ></video>
+              <div class="card-body">
+                <h6>C lang</h6>
+                <hr />
+                <h3 class="card-title mb-3">
+                  Smash - foreground/background job support
+                </h3>
+                <p class="card-text">
+                  Smash is a premetive small shell. in this project, a fb/bg job
+                  support was added. A job in bg will allow the shell to receive
+                  new commands. While for a fg, the shell will be non responsive
+                  untill job completion.
+                </p>
+                <div class="text-center rotate">
+                  <h5>
+                    <a
+                      href="https://github.com/ladzaretti/smash_bg_fg"
+                      target="_blank"
+                      ><i class="bi bi-github mx-1"></i
+                    ></a>
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- contact -->
+    <section id="contact-section">
+      <div class="container">
+        <div></div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+      id="contact"
+      class="
+        w-100
+        d-flex
+        flex-shrink-0
+        quicksand-font
+        overflow-hidden
+        bg-material-gray-900
+      "
+    >
+      <div class="container">
+        <div class="row py-4 px-5">
+          <div class="col text-center m-auto">
+            <h6 class="text-light">Gabriel Ladzaretti</h6>
+            <div class="py-1 m-auto">
+              <button
+                type="button"
+                class="btn btn-outline-secondary px-3"
+                data-bs-toggle="modal"
+                data-bs-target="#contact-modal"
+              >
+                Contact Me
+              </button>
+            </div>
+            <ul class="small list-unstyled text-muted">
+              <li>
+                <a href="mailto:gabriel.ladzaretti@gmail.com"
+                  ><span> Gabriel.Ladzaretti@gmail.com</span></a
+                >
+              </li>
+              <li>
+                <a href="https://github.com/ladzaretti" target="_blank">
+                  https://github.com/ladzaretti</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/in/gabriel-ladzaretti
+                "
+                  target="_blank"
+                >
+                  <span class="align-text-top"
+                    >https://www.linkedin.com/in/gabriel-ladzaretti</span
+                  ></a
+                >
+              </li>
+            </ul>
+            <p class="small text-muted mb-0 text-center pt-md-4">
+              2021 &copy; Copyrights. All rights reserved.
+            </p>
+          </div>
+
+          <!-- <div class="col-lg-4 col-md-6 text-md-end text-center">
+            <button
+              type="button"
+              class="btn btn-outline-secondary px-3 mb-5"
+              data-bs-toggle="modal"
+              data-bs-target="#contact"
+            >
+              Contact Me
+            </button>
+            <form action="#">
+              <div class="input-group mb-3">
+                <input
+                  class="form-control"
+                  type="email"
+                  placeholder="Recipient's username"
+                />
+                <button
+                  class="btn btn-primary"
+                  id="button-addon2"
+                  type="button"
+                >
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+              </div>
+            </form>
+          </div> -->
+        </div>
+        <!-- <div class="row">
+          <p class="small text-muted mb-0 text-md-start text-center pt-md-4">
+            2021 &copy; Copyrights. All rights reserved.
+          </p>
+        </div> -->
+      </div>
+    </footer>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="contact-modal"
+      tabindex="-1"
+      aria-labelledby="formLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog quicksand-font modal-dialog-centered">
+        <form
+          id="modal-form"
+          action="https://formspree.io/f/xqkwoayl"
+          method="POST"
+        >
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="formLabel">Contact Me</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <p class="lead">
+                Thank you for your time! <br />Please fill out this form and i
+                will get back to you.
+              </p>
+              <div class="mb-3">
+                <label for="Name" class="col-form-label">Name: </label>
+                <input type="text" name="name" class="form-control" id="Name" />
+                <label for="email" class="col-form-label"> Email: </label>
+                <input
+                  type="email"
+                  name="email"
+                  class="form-control"
+                  id="email"
+                  required
+                />
+                <label for="phone" class="col-form-label"> Phone: </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  class="form-control"
+                  id="phone"
+                />
+                <label for="exampleFormControlTextarea1" class="form-label"
+                  >Message</label
+                >
+                <textarea
+                  class="form-control"
+                  name="message"
+                  rows="5"
+                  required
+                ></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                id="close-btn"
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" class="btn btn-accent" data-dismiss="modal">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"
+  ></script>
+  <script type="module" src="./dist/bundle.js"></script>
+  <!-- <script type="module" src="/js/main.js"></script> -->
+  <!-- <script src="js/form-submit.js"></script> -->
+</html>

@@ -1,0 +1,18 @@
+\
+
+
+\Hi,|700|\
+
+
+\I'm Gabriel Ladzaretti,|400|\
+\I am a Full Stack developer|400| and a recent Computer Science graduate\
+\from the Open University of Israel (Hons).|500|\
+
+\Learning is my tool|400|\
+\and creating is my passion.|1000|\
+
+\So,|700| Contact me &\
+\let's create togather!|500|\
+
+
+Desktop:~gbi$\
