@@ -1,0 +1,34 @@
+// add custom bootstrap 5 themes and colors
+
+// import custom variables
+@import "variables";
+
+// required imports
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+// set custom colors
+$custom-colors: (
+  "dark-custom": $dark-custom,
+  "material-black": $material-black,
+  "material-gray-900": $material-gray-900,
+  "material-gray-background": $material-gray-background,
+  "material-gray-800": $material-gray-800,
+  "material-gray-background-lighten": $material-gray-background-lighten,
+);
+
+// merge maps
+$theme-colors: map-merge($theme-colors, $custom-colors);
+$theme-colors: map-merge($theme-colors, $grays);
+
+// generate color themes
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
+$utilities-colors: map-merge($utilities-colors, $theme-colors-rgb);
+$utilities-text-colors: map-loop(
+  $utilities-colors,
+  rgba-css-var,
+  "$key",
+  "text"
+);
+$utilities-bg-colors: map-loop($utilities-colors, rgba-css-var, "$key", "bg");

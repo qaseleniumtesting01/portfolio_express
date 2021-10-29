@@ -1,0 +1,108 @@
+// macOS "big sur" like terminal
+
+@import "./const";
+.terminal-container {
+  // opacity: 0;
+  width: 50vw;
+  display: none;
+  .terminal {
+    border-radius: 6px;
+    position: relative;
+    .body {
+      height: 50vh;
+      line-height: inherit;
+    }
+    .top {
+      background: #e8e6e8;
+      color: black;
+      padding: 5px;
+      border-radius: 6px 6px 0 0;
+      font-weight: 600;
+    }
+    .btns {
+      position: absolute;
+      top: 9px;
+      left: 9px;
+      margin-left: 1px;
+      // .green {
+      //   margin-left: 1px;
+      // }
+    }
+    .circle {
+      width: 17px;
+      height: 17px;
+      display: inline-block;
+      border-radius: 15px;
+      // margin-left: 1px;
+      border-width: 1px;
+      border-style: solid;
+    }
+    .body {
+      background: #24292e;
+      // color: #7afb4c;
+      // color: #29fe0a;
+      color: #1aec0e;
+      font-size: 1.1em;
+      padding: 6px;
+      overflow: auto;
+      border-radius: 0 0 6px 6px;
+    }
+  }
+}
+
+@media (max-width: $grid-md) {
+  .terminal-container {
+    width: 90vw;
+    .terminal {
+      .body {
+        height: 50vh;
+      }
+    }
+  }
+}
+
+.terminal-maximize {
+  width: 100vw;
+  .terminal {
+    .body {
+      height: 75vh;
+    }
+  }
+}
+
+.title {
+  text-align: center;
+}
+.red {
+  background: #ec6a5f;
+  border-color: #d04e42;
+}
+.green {
+  background: #64cc57;
+  border-color: #4ea73b;
+}
+.yellow {
+  background: #f5c04f;
+  border-color: #d6a13d;
+}
+.clear {
+  clear: both;
+}
+.space {
+  margin: 25px;
+}
+.terminal-shadow {
+  //   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+// Blinking cursor animation
+.cursor {
+  animation: 1s cursor-blink step-end infinite;
+}
+
+@keyframes cursor-blink {
+  50% {
+    color: transparent;
+  }
+}
