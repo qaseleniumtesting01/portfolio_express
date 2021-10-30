@@ -5,6 +5,8 @@ const REDIS_PORT = process.env.PORT || 6397;
 const REDIS_URL = process.env.REDISGO_URL;
 const REDIS_SET_NAME = "userip";
 const REDIS_CNT = "counter";
+// const TIMEOUT = 1000 * 60 * 10;
+const TIMEOUT = 10 * 1000;
 const routerWrapper = require("./routes/api/router");
 // Global consts
 const HOUR_S = 3600;
@@ -18,26 +20,21 @@ const app = express();
 // Init Redis
 const client = REDIS_URL ? redis.createClient(REDIS_URL) : redis.createClient();
 
-// Check for existance of a redis set
-client.exists(REDIS_SET_NAME, (err, found) => {
-  if (err) throw err;
-  if (!found)
-    client.sadd(REDIS_SET_NAME, "0.0.0.0", (err, data) =>
-      console.log("REDIS set created")
-    );
-});
-
-// Check for existance of a redis counter
-client.exists(REDIS_CNT, (err, found) => {
-  if (err) throw err;
-  if (!found)
-    client.set(REDIS_CNT, 0, (err, data) =>
-      console.log("REDIS counter created")
-    );
-});
-
 client.on("connect", () => {
   console.log("redis: connected successfully");
+  // Check for existance of a redis counter
+  client.EXISTS(REDIS_CNT, (err, found) => {
+    if (err) throw err;
+    if (!found)
+      client.SET(REDIS_CNT, 0, (err, data) =>
+        console.log("REDIS counter created")
+      );
+  });
+  // remove all keys with age greater then TIMEOUT
+  setInterval(() => {
+    const now = Date.now();
+    client.ZREMRANGEBYSCORE(REDIS_SET_NAME, 0, now - TIMEOUT);
+  }, TIMEOUT);
 });
 
 client.on("error", (err) => {

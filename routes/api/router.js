@@ -1,14 +1,14 @@
 const path = require("path");
 const express = require("express");
 
-function wrapper(redis, set, cnt) {
+function wrapper(redis, sortedSet, cnt) {
   const router = express.Router();
   router.get("/", (req, res) => {
     const userIp = req.ip === "::1" ? "127.0.0.1" : req.ip;
-    redis.sismember(set, userIp, (err, found) => {
+    redis.ZSCORE(sortedSet, userIp, (err, found) => {
       if (!found) {
-        redis.sadd(set, userIp);
-        redis.incr(cnt);
+        redis.ZADD(sortedSet, Date.now(), userIp);
+        redis.INCR(cnt);
       }
     });
 
