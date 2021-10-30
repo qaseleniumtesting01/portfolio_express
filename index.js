@@ -5,8 +5,8 @@ const REDIS_PORT = process.env.PORT || 6397;
 const REDIS_URL = process.env.REDISGO_URL;
 const REDIS_SET_NAME = "userip";
 const REDIS_CNT = "counter";
-// const TIMEOUT = 1000 * 60 * 10;
-const TIMEOUT = 10 * 1000;
+const TIMEOUT = 1000 * 60 * 10;
+// const TIMEOUT = 10 * 1000;
 const routerWrapper = require("./routes/api/router");
 // Global consts
 const HOUR_S = 3600;
