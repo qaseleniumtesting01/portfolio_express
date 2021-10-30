@@ -1,14 +1,16 @@
 // handle form submit
 
-var form = document.querySelector("#modal-form");
+let form = document.querySelector("#modal-form");
 async function handleSubmit(event) {
   event.preventDefault();
-  var data = new FormData(event.target);
+  let formData = new FormData(event.target);
+  let data = {};
+  formData.forEach((value, key) => (data[key] = value));
   fetch(event.target.action, {
     method: form.method,
-    body: data,
+    body: JSON.stringify(data),
     headers: {
-      Accept: "application/json",
+      "Content-Type": "application/json",
     },
   })
     .then((response) => {

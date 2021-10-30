@@ -41,6 +41,7 @@ client.on("error", (err) => {
   console.log("Error " + err);
 });
 
+app.use(express.json());
 // Set router
 app.use("/", routerWrapper(client, REDIS_SET_NAME, REDIS_CNT));
 
