@@ -3,7 +3,7 @@ const url = require("url");
 const express = require("express");
 const redis = require("redis");
 const REDIS_PORT = process.env.PORT || 6397;
-const REDISTOGO_URL = process.env.REDISGO_URL;
+const REDISTOGO_URL = process.env.REDISTOGO_URL;
 const REDIS_SET_NAME = "userip";
 const REDIS_CNT = "counter";
 const TIMEOUT = 1000 * 60 * 10;
@@ -21,7 +21,7 @@ const app = express();
 // Init Redis
 let client;
 if (REDISTOGO_URL) {
-  let rtg = new url.URL(process.env.REDISTOGO_URL);
+  let rtg = new url.URL(REDISTOGO_URL);
   console.log("rtg: " + rtg);
 
   client = redis.createClient(rtg.port, rtg.hostname);
