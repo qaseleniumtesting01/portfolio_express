@@ -39,7 +39,7 @@ function wrapper(redisClient, setName, cntVar, auth) {
     res.sendFile(path.join(__dirname, "/../../", "public", "index.html"));
   });
 
-  router.get("/cntVar", (req, res) => {
+  router.get("/cnt", (req, res) => {
     redisClient.GET(cntVar, (err, data) => {
       res.json({
         visitors: data,
