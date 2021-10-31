@@ -21,9 +21,7 @@ const app = express();
 // Init Redis
 let client;
 if (REDISTOGO_URL) {
-  let rtg = new url.URL(REDISTOGO_URL);
-  console.log("rtg: " + rtg);
-
+  let rtg = url.parse(REDISTOGO_URL);
   client = redis.createClient(rtg.port, rtg.hostname);
   client.auth(rtg.auth.split(":")[1]);
 } else {
