@@ -2,19 +2,20 @@ const path = require("path");
 const url = require("url");
 const express = require("express");
 const redis = require("redis");
-const REDIS_PORT = process.env.PORT || 6397;
 const REDISTOGO_URL = process.env.REDISTOGO_URL;
+
+// Global consts
 const REDIS_SET_NAME = "userip";
 const REDIS_CNT = "counter";
 const TIMEOUT = 1000 * 60 * 10;
+const PORT = process.env.PORT || 5000;
+
 // const TIMEOUT = 10 * 1000;
 const routerWrapper = require("./routes/api/router");
-// Global consts
-const HOUR_S = 3600;
-const PORT = process.env.PORT || 5000;
 
 // Init app
 const app = express();
+
 // when server is behind a proxy
 // app.enable("trust proxy");
 
@@ -25,7 +26,6 @@ if (REDISTOGO_URL) {
   client = redis.createClient(rtg.port, rtg.hostname);
   client.auth(rtg.auth.split(":")[1]);
 } else {
-  console.log("connected to redis locally");
   client = redis.createClient();
 }
 client.on("connect", () => {
@@ -50,8 +50,15 @@ client.on("error", (err) => {
 });
 
 app.use(express.json());
+
+// Use heroku env variables
+const auth = {
+  email: process.env.MAIL_USER,
+  password: process.env.MAIL_PASS,
+};
+
 // Set router
-app.use("/", routerWrapper(client, REDIS_SET_NAME, REDIS_CNT));
+app.use("/", routerWrapper(client, REDIS_SET_NAME, REDIS_CNT, auth));
 
 // Set Static folder
 app.use(express.static(path.join(__dirname, "public")));
