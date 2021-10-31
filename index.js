@@ -1,4 +1,5 @@
 const path = require("path");
+const url = require("url");
 const express = require("express");
 const redis = require("redis");
 const REDIS_PORT = process.env.PORT || 6397;
@@ -20,11 +21,14 @@ const app = express();
 // Init Redis
 let client;
 if (REDISTOGO_URL) {
-  let rtg = require("url").parse(process.env.REDISTOGO_URL);
-  client = require("redis").createClient(rtg.port, rtg.hostname);
+  let rtg = new url.URL(process.env.REDISTOGO_URL);
+  console.log("rtg: " + rtg);
+
+  client = redis.createClient(rtg.port, rtg.hostname);
   client.auth(rtg.auth.split(":")[1]);
 } else {
-  client = require("redis").createClient();
+  console.log("connected to redis locally");
+  client = redis.createClient();
 }
 client.on("connect", () => {
   console.log("redis: connected successfully");
