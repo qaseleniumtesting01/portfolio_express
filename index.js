@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express");
 const redis = require("redis");
 const REDIS_PORT = process.env.PORT || 6397;
-const REDIS_URL = process.env.REDISGO_URL;
+const REDISTOGO_URL = process.env.REDISGO_URL;
 const REDIS_SET_NAME = "userip";
 const REDIS_CNT = "counter";
 const TIMEOUT = 1000 * 60 * 10;
@@ -18,8 +18,14 @@ const app = express();
 // app.enable("trust proxy");
 
 // Init Redis
-const client = REDIS_URL ? redis.createClient(REDIS_URL) : redis.createClient();
-
+let client;
+if (REDISTOGO_URL) {
+  let rtg = require("url").parse(process.env.REDISTOGO_URL);
+  client = require("redis").createClient(rtg.port, rtg.hostname);
+  client.auth(rtg.auth.split(":")[1]);
+} else {
+  client = require("redis").createClient();
+}
 client.on("connect", () => {
   console.log("redis: connected successfully");
   // Check for existance of a redis counter
