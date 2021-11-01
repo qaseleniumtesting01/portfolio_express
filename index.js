@@ -57,9 +57,6 @@ const auth = {
   password: process.env.MAIL_PASS,
 };
 
-// Set router
-app.use("/", routerWrapper(client, REDIS_SET_NAME, REDIS_CNT, auth));
-
 app.use((req, res, next) => {
   if (req.header("x-forwarded-proto") !== "https") {
     res.redirect(`https://${req.header("host")}${req.url}`);
@@ -67,6 +64,10 @@ app.use((req, res, next) => {
     next();
   }
 });
+
+// Set router
+app.use("/", routerWrapper(client, REDIS_SET_NAME, REDIS_CNT, auth));
+
 // Set Static folder
 app.use(express.static(path.join(__dirname, "public")));
 app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
