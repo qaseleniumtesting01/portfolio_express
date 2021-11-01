@@ -50,7 +50,12 @@ function wrapper(redisClient, setName, cntVar, auth) {
   router.post("/", async (req, res) => {
     const msg = JSON.stringify(req.body);
     redisClient.RPUSH("mail", msg);
-    mail(msg, auth);
+    try {
+      mail(msg, auth);
+    } catch (error) {
+      console.log("form submission error");
+      console.log(error);
+    }
     res.sendStatus(200);
   });
   return router;
