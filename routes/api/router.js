@@ -19,10 +19,7 @@ async function mail(msg, auth) {
     from: '"Gabriel Ladzaretti" <form.ladzaretti@gmail.com>',
     to: `${process.env.SEND_TO_MAIL}`,
     subject: "New Message",
-    text: `name: ${msg.name}
-    email: ${msg.email}
-    phone: ${msg.phone}
-    message: ${msg.message}`,
+    text: msg,
   });
 
   console.log("Message sent: %s", info.messageId);
@@ -38,7 +35,14 @@ function wrapper(redisClient, setName, cntVar, auth) {
     const msg = JSON.stringify(req.body);
     redisClient.RPUSH("mail", msg);
     try {
-      mail(msg, auth);
+      mail(
+        `
+      name: ${req.body.name}
+      email: ${req.body.email}
+      phone: ${req.body.phone}
+      message: ${req.body.message}`,
+        auth
+      );
     } catch (error) {
       console.log("form submission error");
       console.log(error);
