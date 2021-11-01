@@ -2,12 +2,15 @@ const path = require("path");
 const url = require("url");
 const express = require("express");
 const redis = require("redis");
+const mailer = require("./js/mailer");
 const REDISTOGO_URL = process.env.REDISTOGO_URL;
 
 // Global consts
 const REDIS_SET_NAME = "users";
 const REDIS_CNT = "counter";
-const TIMEOUT = 1000 * 60 * 10;
+const MIN = 1000 * 60;
+const HOUR = MIN * 60;
+const TIMEOUT = MIN * 10;
 const PORT = process.env.PORT || 5000;
 
 // const TIMEOUT = 10 * 1000;
@@ -72,3 +75,14 @@ app.use("/", routerWrapper(client, REDIS_SET_NAME, REDIS_CNT, auth));
 // Set Static folder
 app.use(express.static(path.join(__dirname, "public")));
 app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
+
+setInterval(() => {
+  redis.GET(REDIS_CNT, (err, data) => {
+    mailer(
+      `${process.env.SEND_TO_MAIL}`,
+      "Daily Report",
+      `Total Visitors:${data}`,
+      auth
+    );
+  });
+}, HOUR * 24);

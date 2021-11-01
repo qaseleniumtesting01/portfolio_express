@@ -1,6 +1,7 @@
 const storage = window.sessionStorage;
 
-function sendId(id = 1) {
+// Log visitor on server
+function logVisitor(id = 1) {
   let url = window.location.protocol + "//" + window.location.host + "/reg";
   fetch(url, {
     method: "POST",
@@ -15,6 +16,7 @@ function sendId(id = 1) {
   });
 }
 
+// Check browser session support
 if (storage) {
   if (!storage.getItem("id")) {
     // Set unique id
@@ -24,10 +26,10 @@ if (storage) {
     storage.setItem("id", id);
 
     // Register session on server
-    sendId(id);
+    logVisitor(id);
   }
 } else {
   // Send fallback id
   // Assuming low chance of multiply visitors with no session browser support in a given time window
-  sendId();
+  logVisitor();
 }

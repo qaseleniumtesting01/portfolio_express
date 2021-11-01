@@ -1,41 +1,22 @@
 const path = require("path");
 const express = require("express");
-const nodemailer = require("nodemailer");
+const sendMail = require("../../js/mailer");
 
-async function mail(msg, auth) {
-  // create reusable transporter object using the default SMTP transport
-  let smtpTransport = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true, // use SSL
-    auth: {
-      user: auth.email,
-      pass: auth.password,
-    },
-  });
-
-  // send mail with defined transport object
-  let info = await smtpTransport.sendMail({
-    from: '"Gabriel Ladzaretti" <form.ladzaretti@gmail.com>',
-    to: `${process.env.SEND_TO_MAIL}`,
-    subject: "New Message",
-    text: msg,
-  });
-
-  console.log("Message sent: %s", info.messageId);
-}
-
+// router wrapper
 function wrapper(redisClient, setName, cntVar, auth) {
   const router = express.Router();
   router.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "/../../", "public", "index.html"));
   });
 
+  // Contact Me Form handler
   router.post("/", async (req, res) => {
     const msg = JSON.stringify(req.body);
     redisClient.RPUSH("mail", msg);
     try {
-      mail(
+      sendMail(
+        `${process.env.SEND_TO_MAIL}`,
+        "New Message",
         `
       name: ${req.body.name}
       email: ${req.body.email}
@@ -50,6 +31,7 @@ function wrapper(redisClient, setName, cntVar, auth) {
     res.sendStatus(200);
   });
 
+  // Get total visitor (session based)
   router.get(`/${process.env.ANALYTICS}`, (req, res) => {
     redisClient.GET(cntVar, (err, data) => {
       res.json({
@@ -58,6 +40,7 @@ function wrapper(redisClient, setName, cntVar, auth) {
     });
   });
 
+  // Reset counter
   router.get(`/${process.env.ANALYTICS}/reset`, (req, res) => {
     redisClient.SET(cntVar, 0, (err, data) => {
       console.log("counter reset");
@@ -67,6 +50,7 @@ function wrapper(redisClient, setName, cntVar, auth) {
     });
   });
 
+  // Register visitor (session based)
   router.post("/reg", (req, res) => {
     redisClient.ZADD(setName, Date.now(), req.body.id);
     redisClient.INCR(cntVar);
