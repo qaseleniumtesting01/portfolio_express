@@ -60,6 +60,13 @@ const auth = {
 // Set router
 app.use("/", routerWrapper(client, REDIS_SET_NAME, REDIS_CNT, auth));
 
+app.use((req, res, next) => {
+  if (req.header("x-forwarded-proto") !== "https") {
+    res.redirect(`https://${req.header("host")}${req.url}`);
+  } else {
+    next();
+  }
+});
 // Set Static folder
 app.use(express.static(path.join(__dirname, "public")));
 app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
