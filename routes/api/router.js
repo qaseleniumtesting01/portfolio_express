@@ -39,14 +39,6 @@ function wrapper(redisClient, setName, cntVar, auth) {
     res.sendFile(path.join(__dirname, "/../../", "public", "index.html"));
   });
 
-  router.get(`/${process.env.ANALYTICS}`, (req, res) => {
-    redisClient.GET(cntVar, (err, data) => {
-      res.json({
-        visitors: data,
-      });
-    });
-  });
-
   router.post("/", async (req, res) => {
     const msg = JSON.stringify(req.body);
     redisClient.RPUSH("mail", msg);
@@ -57,6 +49,20 @@ function wrapper(redisClient, setName, cntVar, auth) {
       console.log(error);
     }
     res.sendStatus(200);
+  });
+
+  router.get(`/${process.env.ANALYTICS}`, (req, res) => {
+    redisClient.GET(cntVar, (err, data) => {
+      res.json({
+        visitors: data,
+      });
+    });
+  });
+
+  router.get(`/${process.env.ANALYTICS}/reset`, (req, res) => {
+    redisClient.SET(cntVar, 0, (err, data) => {
+      console.log("counter reset");
+    });
   });
   return router;
 }

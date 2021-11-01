@@ -20,8 +20,7 @@ async function handleSubmit(event) {
     })
     .catch((error) => {
       console.error(error);
-      console.log(data);
-      alert("Oops! There was a problem submitting your form: " + error);
+      alert("Oops! There was a problem submitting your form");
     });
 }
 form.addEventListener("submit", handleSubmit);

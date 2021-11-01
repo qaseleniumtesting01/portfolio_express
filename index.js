@@ -29,7 +29,7 @@ if (REDISTOGO_URL) {
   client = redis.createClient();
 }
 client.on("connect", () => {
-  console.log("redis: connected successfully");
+  console.log("REDIS: connected successfully");
   // Check for existance of a redis counter
   client.EXISTS(REDIS_CNT, (err, found) => {
     if (err) throw err;
@@ -57,6 +57,7 @@ const auth = {
   password: process.env.MAIL_PASS,
 };
 
+// redirect http to https requests
 app.use((req, res, next) => {
   if (req.header("x-forwarded-proto") !== "https") {
     res.redirect(`https://${req.header("host")}${req.url}`);
