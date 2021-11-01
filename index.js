@@ -58,13 +58,13 @@ const auth = {
 };
 
 // redirect http to https requests
-// app.use((req, res, next) => {
-//   if (req.header("x-forwarded-proto") !== "https") {
-//     res.redirect(`https://${req.header("host")}${req.url}`);
-//   } else {
-//     next();
-//   }
-// });
+app.use((req, res, next) => {
+  if (req.header("x-forwarded-proto") !== "https") {
+    res.redirect(`https://${req.header("host")}${req.url}`);
+  } else {
+    next();
+  }
+});
 
 // Set router
 app.use("/", routerWrapper(client, REDIS_SET_NAME, REDIS_CNT, auth));
