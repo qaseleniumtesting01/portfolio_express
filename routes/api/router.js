@@ -63,6 +63,9 @@ function wrapper(redisClient, setName, cntVar, auth) {
     redisClient.SET(cntVar, 0, (err, data) => {
       console.log("counter reset");
     });
+    res.json({
+      msg: "counter reset",
+    });
   });
   return router;
 }
