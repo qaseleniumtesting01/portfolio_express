@@ -17,9 +17,12 @@ async function mail(msg, auth) {
   // send mail with defined transport object
   let info = await smtpTransport.sendMail({
     from: '"Gabriel Ladzaretti" <form.ladzaretti@gmail.com>',
-    to: "gabriel.ladzaretti@gmail.com",
+    to: process.env.SENT_TO_MAIL,
     subject: "New Message",
-    text: msg,
+    text: `name: ${msg.name}
+    email: ${msg.email}
+    phone: ${msg.phone}
+    message: ${msg.message}`,
   });
 
   console.log("Message sent: %s", info.messageId);
@@ -28,14 +31,6 @@ async function mail(msg, auth) {
 function wrapper(redisClient, setName, cntVar, auth) {
   const router = express.Router();
   router.get("/", (req, res) => {
-    const userIp = req.ip === "::1" ? "127.0.0.1" : req.ip;
-    redisClient.ZSCORE(setName, userIp, (err, found) => {
-      if (!found) {
-        redisClient.ZADD(setName, Date.now(), userIp);
-        redisClient.INCR(cntVar);
-      }
-    });
-
     res.sendFile(path.join(__dirname, "/../../", "public", "index.html"));
   });
 
@@ -67,6 +62,13 @@ function wrapper(redisClient, setName, cntVar, auth) {
       msg: "counter reset",
     });
   });
+
+  router.post("/reg", (req, res) => {
+    redisClient.ZADD(setName, Date.now(), req.body.id);
+    redisClient.INCR(cntVar);
+    res.sendStatus(200);
+  });
+
   return router;
 }
 
