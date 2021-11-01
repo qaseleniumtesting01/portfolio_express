@@ -6,6 +6,13 @@ const sendMail = require("../../js/mailer");
 function wrapper(redisClient, setName, cntVar, auth) {
   const router = express.Router();
   router.get("/", (req, res) => {
+    const userIp = req.ip === "::1" ? "127.0.0.1" : req.ip;
+    redisClient.ZSCORE(setName, userIp, (err, found) => {
+      if (!found) {
+        redisClient.ZADD(setName, Date.now(), userIp);
+        redisClient.INCR(cntVar);
+      }
+    });
     res.sendFile(path.join(__dirname, "/../../", "public", "index.html"));
   });
 
@@ -48,13 +55,6 @@ function wrapper(redisClient, setName, cntVar, auth) {
     res.json({
       msg: "counter reset",
     });
-  });
-
-  // Register visitor (session based)
-  router.post("/reg", (req, res) => {
-    redisClient.ZADD(setName, Date.now(), req.body.id);
-    redisClient.INCR(cntVar);
-    res.sendStatus(200);
   });
 
   return router;

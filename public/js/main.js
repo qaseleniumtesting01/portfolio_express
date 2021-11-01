@@ -17,9 +17,6 @@ import "./form-submit.js";
 // typewriter
 import { typewriter, typewriterFetch } from "./typewriter.js";
 
-// register
-import "./reg.js";
-
 // screen size presets
 const GRIDD_LG = 992;
 const GRID_MD = 768;
