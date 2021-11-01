@@ -17,7 +17,7 @@ async function mail(msg, auth) {
   // send mail with defined transport object
   let info = await smtpTransport.sendMail({
     from: '"Gabriel Ladzaretti" <form.ladzaretti@gmail.com>',
-    to: process.env.SENT_TO_MAIL,
+    to: `${process.env.SEND_TO_MAIL}`,
     subject: "New Message",
     text: `name: ${msg.name}
     email: ${msg.email}
