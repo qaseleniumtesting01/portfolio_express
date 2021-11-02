@@ -84,4 +84,4 @@ window.onresize = () => {
   window.resized = setTimeout(updateBashSize, 100);
 };
 
-console.info("terminal script loaded");
+// console.info("terminal script loaded");

@@ -2,6 +2,7 @@ const path = require("path");
 const url = require("url");
 const express = require("express");
 const redis = require("redis");
+const cookieParser = require("cookie-parser");
 const mailer = require("./js/mailer");
 const REDISTOGO_URL = process.env.REDISTOGO_URL;
 
@@ -53,6 +54,7 @@ client.on("error", (err) => {
 });
 
 app.use(express.json());
+app.use(cookieParser());
 
 // Use heroku env variables
 const auth = {

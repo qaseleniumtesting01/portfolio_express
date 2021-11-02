@@ -28,4 +28,4 @@ const focus = (elem, index) => {
   }
 };
 
-console.info("dock.js script loaded");
+// console.info("dock.js script loaded");

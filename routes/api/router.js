@@ -1,18 +1,21 @@
 const path = require("path");
 const express = require("express");
 const sendMail = require("../../js/mailer");
+const crypto = require("crypto");
+const MIN = 1000 * 60;
 
 // router wrapper
 function wrapper(redisClient, setName, cntVar, auth) {
   const router = express.Router();
   router.get("/", (req, res) => {
-    const userIp = req.ip === "::1" ? "127.0.0.1" : req.ip;
-    redisClient.ZSCORE(setName, userIp, (err, found) => {
-      if (!found) {
-        redisClient.ZADD(setName, Date.now(), userIp);
-        redisClient.INCR(cntVar);
-      }
-    });
+    if (!req.cookies.userID) {
+      const userID = crypto.randomBytes(16).toString("hex");
+      res.cookie("userID", userID, {
+        expires: new Date(Date.now() + MIN * 10),
+      });
+      redisClient.ZADD(setName, Date.now(), userID);
+      redisClient.INCR(cntVar);
+    }
     res.sendFile(path.join(__dirname, "/../../", "public", "index.html"));
   });
 
