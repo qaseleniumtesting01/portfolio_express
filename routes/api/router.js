@@ -1,11 +1,19 @@
 const path = require("path");
 const express = require("express");
-const sendMail = require("../../js/mailer");
+const createMailer = require("../../js/create-mailer");
 const crypto = require("crypto");
 const MIN = 1000 * 60;
 
 // router wrapper
 function wrapper(redisClient, setName, cntVar, auth) {
+  const sendMail = createMailer(
+    {
+      name: "Gabriel Ladzaretti - Auto",
+      address: auth.email,
+    },
+    auth
+  );
+
   const router = express.Router();
   router.get("/", (req, res) => {
     if (!req.cookies.userID) {
@@ -25,14 +33,13 @@ function wrapper(redisClient, setName, cntVar, auth) {
     redisClient.RPUSH("mail", msg);
     try {
       sendMail(
-        `${process.env.SEND_TO_MAIL}`,
+        `${process.env.MAIL_RECIPIENT}`,
         "New Message",
         `
       name: ${req.body.name}
       email: ${req.body.email}
       phone: ${req.body.phone}
-      message: ${req.body.message}`,
-        auth
+      message: ${req.body.message}`
       );
     } catch (error) {
       console.log("form submission error");

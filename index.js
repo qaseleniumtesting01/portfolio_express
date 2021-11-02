@@ -3,12 +3,12 @@ const url = require("url");
 const express = require("express");
 const redis = require("redis");
 const cookieParser = require("cookie-parser");
-const mailer = require("./js/mailer");
-const REDISTOGO_URL = process.env.REDISTOGO_URL;
+const createMailer = require("./js/create-mailer");
 
 // Global consts
+const REDISTOGO_URL = process.env.REDISTOGO_URL;
 const REDIS_SET_NAME = "users";
-const REDIS_CNT = "counter";
+const REDIS_COUNTER_VAR = "counter";
 const MIN = 1000 * 60;
 const HOUR = MIN * 60;
 const TIMEOUT = MIN * 10;
@@ -35,10 +35,10 @@ if (REDISTOGO_URL) {
 client.on("connect", () => {
   console.log("REDIS: connected successfully");
   // Check for existance of a redis counter
-  client.EXISTS(REDIS_CNT, (err, found) => {
+  client.EXISTS(REDIS_COUNTER_VAR, (err, found) => {
     if (err) throw err;
     if (!found)
-      client.SET(REDIS_CNT, 0, (err, data) =>
+      client.SET(REDIS_COUNTER_VAR, 0, (err, data) =>
         console.log("REDIS counter created")
       );
   });
@@ -56,12 +56,6 @@ client.on("error", (err) => {
 app.use(express.json());
 app.use(cookieParser());
 
-// Use heroku env variables
-const auth = {
-  email: process.env.MAIL_USER,
-  password: process.env.MAIL_PASS,
-};
-
 // redirect http to https requests
 app.use((req, res, next) => {
   if (req.header("x-forwarded-proto") !== "https") {
@@ -71,20 +65,33 @@ app.use((req, res, next) => {
   }
 });
 
+// Use heroku env variables as nodemailer options
+const auth = {
+  email: process.env.MAIL_USER,
+  password: process.env.MAIL_PASS,
+};
+
+const sendMail = createMailer(
+  {
+    name: "Gabriel Ladzaretti - Auto",
+    address: auth.email,
+  },
+  auth
+);
+
 // Set router
-app.use("/", routerWrapper(client, REDIS_SET_NAME, REDIS_CNT, auth));
+app.use("/", routerWrapper(client, REDIS_SET_NAME, REDIS_COUNTER_VAR, auth));
 
 // Set Static folder
 app.use(express.static(path.join(__dirname, "public")));
 app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
 
 setInterval(() => {
-  redis.GET(REDIS_CNT, (err, data) => {
-    mailer(
-      `${process.env.SEND_TO_MAIL}`,
+  redis.GET(REDIS_COUNTER_VAR, (err, data) => {
+    sendMail(
+      `${process.env.MAIL_RECIPIENT}`,
       "Daily Report",
-      `Total Visitors:${data}`,
-      auth
+      `Total Visitors:${data}`
     );
   });
 }, HOUR * 24);
