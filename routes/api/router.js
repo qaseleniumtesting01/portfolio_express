@@ -23,14 +23,16 @@ function wrapper(redis, dbStats, dbMail, auth, mgmtRoute) {
         expires: new Date(Date.now() + MIN * 10),
       });
       // Update Stats list
-      const geo = geoip.lookup(req.ip);
+      console.log(req.ip);
+
+      // const geo = geoip.lookup(req.ip);
       const time = new Date()
         .toLocaleString("he-IL", {
           timeZone: "Asia/Jerusalem",
         })
         .replace(", ", " | ");
-      const entry = `${geo.country} | ${geo.city} | ${time}`;
-      redis.RPUSH(dbStats, entry);
+      // const entry = `${geo.country} | ${geo.city} | ${time}`;
+      redis.RPUSH(dbStats, time);
     }
     res.sendFile(path.join(__dirname, "/../../", "public", "index.html"));
   });
