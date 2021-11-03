@@ -1,0 +1,12 @@
+<h6 class="my-2">Emails: {{len}} </h6>
+<ul class="list-group">
+  {{#each objs}}
+    <li class="list-group-item">
+      <ul class="list-unstyled">
+        {{#each this}}
+          <li> {{@key}}: {{this}}</li>
+        {{/each}}
+      </ul>
+    </li>
+  {{/each}}
+</ul>

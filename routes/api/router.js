@@ -1,11 +1,12 @@
 const path = require("path");
 const express = require("express");
-const createMailer = require("../../js/create-mailer");
+const createMailer = require("../../utils/create-mailer");
 const crypto = require("crypto");
+const geoip = require("geoip-lite");
 const MIN = 1000 * 60;
 
 // router wrapper
-function wrapper(redisClient, setName, cntVar, auth) {
+function wrapper(redis, dbStats, dbMail, auth, mgmtRoute) {
   const sendMail = createMailer(
     {
       name: "Gabriel Ladzaretti - Auto",
@@ -21,8 +22,15 @@ function wrapper(redisClient, setName, cntVar, auth) {
       res.cookie("userID", userID, {
         expires: new Date(Date.now() + MIN * 10),
       });
-      redisClient.ZADD(setName, Date.now(), userID);
-      redisClient.INCR(cntVar);
+      // Update Stats list
+      const geo = geoip.lookup(req.ip);
+      const time = new Date()
+        .toLocaleString("he-IL", {
+          timeZone: "Asia/Jerusalem",
+        })
+        .replace(", ", " | ");
+      const entry = `${geo.country} | ${geo.city} | ${time}`;
+      redis.RPUSH(dbStats, entry);
     }
     res.sendFile(path.join(__dirname, "/../../", "public", "index.html"));
   });
@@ -30,7 +38,7 @@ function wrapper(redisClient, setName, cntVar, auth) {
   // Contact Me Form handler
   router.post("/", async (req, res) => {
     const msg = JSON.stringify(req.body);
-    redisClient.RPUSH("mail", msg);
+    redis.RPUSH("mail", msg);
     try {
       sendMail(
         `${process.env.MAIL_RECIPIENT}`,
@@ -48,22 +56,53 @@ function wrapper(redisClient, setName, cntVar, auth) {
     res.sendStatus(200);
   });
 
-  // Get total visitor (session based)
-  router.get(`/${process.env.ANALYTICS}`, (req, res) => {
-    redisClient.GET(cntVar, (err, data) => {
-      res.json({
-        visitors: data,
+  // Show mgmt
+  router.get(`/${mgmtRoute}/`, (req, res) => {
+    redis.LRANGE(dbStats, 0, -1, (err, items) => {
+      if (err) throw err;
+      res.render("home");
+    });
+  });
+
+  // Get Stats
+  router.get(`/${mgmtRoute}/stats`, (req, res) => {
+    redis.LRANGE(dbStats, 0, -1, (err, items) => {
+      if (err) throw err;
+      res.render("stats", {
+        len: items.length,
+        items,
       });
     });
   });
 
-  // Reset counter
-  router.get(`/${process.env.ANALYTICS}/reset`, (req, res) => {
-    redisClient.SET(cntVar, 0, (err, data) => {
-      console.log("counter reset");
+  // Reset Mail list
+  router.get(`/${mgmtRoute}/stats/reset`, (req, res) => {
+    redis.DEL(dbStats, (err, data) => {
+      if (err) throw err;
+      res.render("reset", {
+        msg: "Reset Done! Stats list deleted",
+      });
     });
-    res.json({
-      msg: "counter reset",
+  });
+
+  // Get Mail backup
+  router.get(`/${mgmtRoute}/emails`, (req, res) => {
+    redis.LRANGE(dbMail, 0, -1, (err, items) => {
+      if (err) throw err;
+      res.render("emails", {
+        len: items.length,
+        objs: items.map((str) => JSON.parse(str)),
+      });
+    });
+  });
+
+  // Reset Mail list
+  router.get(`/${mgmtRoute}/emails/reset`, (req, res) => {
+    redis.DEL(dbMail, (err, data) => {
+      if (err) throw err;
+      res.render("reset", {
+        msg: "Reset Done! Mail backup deleted",
+      });
     });
   });
 

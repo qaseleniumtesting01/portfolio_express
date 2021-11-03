@@ -2,13 +2,15 @@ const path = require("path");
 const url = require("url");
 const express = require("express");
 const redis = require("redis");
+const exphbs = require("express-handlebars");
 const cookieParser = require("cookie-parser");
-const createMailer = require("./js/create-mailer");
+const createMailer = require("./utils/create-mailer");
 
 // Global consts
 const REDISTOGO_URL = process.env.REDISTOGO_URL;
-const REDIS_SET_NAME = "users";
-const REDIS_COUNTER_VAR = "counter";
+const REDIS_DATA_SET = "data";
+const REDIS_MAIL_LIST = "mail";
+const ANALYTICS = process.env.ANALYTICS;
 const MIN = 1000 * 60;
 const HOUR = MIN * 60;
 const TIMEOUT = MIN * 10;
@@ -34,29 +36,40 @@ if (REDISTOGO_URL) {
 }
 client.on("connect", () => {
   console.log("REDIS: connected successfully");
-  // Check for existance of a redis counter
-  client.EXISTS(REDIS_COUNTER_VAR, (err, found) => {
-    if (err) throw err;
-    if (!found)
-      client.SET(REDIS_COUNTER_VAR, 0, (err, data) =>
-        console.log("REDIS counter created")
-      );
-  });
-  // remove all keys with age greater then TIMEOUT
-  setInterval(() => {
-    const now = Date.now();
-    client.ZREMRANGEBYSCORE(REDIS_SET_NAME, 0, now - TIMEOUT);
-  }, TIMEOUT);
 });
 
 client.on("error", (err) => {
   console.log("Error " + err);
 });
 
+// Mail daily report
+setInterval(() => {
+  redis.GET(REDIS_MAIL_LIST, (err, data) => {
+    sendMail(
+      `${process.env.MAIL_RECIPIENT}`,
+      "Daily Report",
+      `Total Visitors:${data}`
+    );
+  });
+}, HOUR * 24);
+
+// Init handlebars
+app.engine(
+  "handlebars",
+  exphbs({
+    defaultLayout: "main",
+    helpers: {
+      analytics: ANALYTICS,
+    },
+  })
+);
+app.set("view engine", "handlebars");
+
+// Init Middleware
 app.use(express.json());
 app.use(cookieParser());
 
-// redirect http to https requests
+// Redirect http to https requests
 app.use((req, res, next) => {
   if (req.header("x-forwarded-proto") !== "https") {
     res.redirect(`https://${req.header("host")}${req.url}`);
@@ -80,18 +93,11 @@ const sendMail = createMailer(
 );
 
 // Set router
-app.use("/", routerWrapper(client, REDIS_SET_NAME, REDIS_COUNTER_VAR, auth));
+app.use(
+  "/",
+  routerWrapper(client, REDIS_DATA_SET, REDIS_MAIL_LIST, auth, ANALYTICS)
+);
 
 // Set Static folder
 app.use(express.static(path.join(__dirname, "public")));
 app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
-
-setInterval(() => {
-  redis.GET(REDIS_COUNTER_VAR, (err, data) => {
-    sendMail(
-      `${process.env.MAIL_RECIPIENT}`,
-      "Daily Report",
-      `Total Visitors:${data}`
-    );
-  });
-}, HOUR * 24);
