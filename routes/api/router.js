@@ -84,7 +84,7 @@ function wrapper(redis, dbStats, dbMail, auth, mgmtRoute) {
     redis.DEL(dbStats, (err, data) => {
       if (err) throw err;
       res.render("reset", {
-        msg: "Reset Done! Stats list deleted",
+        msg: "Reset Done! Stats list deleted.",
       });
     });
   });
@@ -105,7 +105,7 @@ function wrapper(redis, dbStats, dbMail, auth, mgmtRoute) {
     redis.DEL(dbMail, (err, data) => {
       if (err) throw err;
       res.render("reset", {
-        msg: "Reset Done! Mail backup deleted",
+        msg: "Reset Done! Mail backup deleted.",
       });
     });
   });
