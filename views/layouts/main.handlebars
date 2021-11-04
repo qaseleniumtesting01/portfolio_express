@@ -9,6 +9,9 @@
     />
     <title>Mangement</title>
   </head>
+  <style>
+    .full-viewport{ min-height: calc(100vh - 260px) ; }
+  </style>
   <body class="bg-grey text-white">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
@@ -66,13 +69,12 @@
     </nav>
 
     <div class="container">
-      {{{body}}}
-
+      <div class="full-viewport">{{{body}}}</div>
     </div>
   </body>
   <footer
     id="contact"
-    class="w-100 d-flex fixed-bottom flex-shrink-0 quicksand-font overflow-hidden"
+    class="w-100 d-flex flex-shrink-0 quicksand-font overflow-hidden"
   >
     <div class="container">
       <hr class="bg-danger border-3 border-bottom border-secondary" />
@@ -93,9 +95,8 @@
         <div class="col text-center m-auto">
           <ul class="small list-unstyled mb-0 text-muted">
             <li>
-              <a class="text-decoration-none mb-0 link-secondary" href="/"><span
-                >
-                  https://ladzaretti.herokuapp.com/</span></a>
+              <a class="text-decoration-none mb-0 link-secondary" href="/"><p>
+                  https://ladzaretti.herokuapp.com/</p></a>
             </li>
           </ul>
           <p class="small text-muted mb-0 mt-2 text-center">
