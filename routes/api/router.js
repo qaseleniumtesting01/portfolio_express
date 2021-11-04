@@ -23,16 +23,18 @@ function wrapper(redis, dbStats, dbMail, auth, mgmtRoute) {
         expires: new Date(Date.now() + MIN * 10),
       });
       // Update Stats list
-      console.log(req.ip);
-
-      // const geo = geoip.lookup(req.ip);
+      let ip = req.ip;
+      if (ip.substr(0, 7) == "::ffff:") {
+        ip = ip.substr(7);
+      }
+      const geo = geoip.lookup(ip);
       const time = new Date()
         .toLocaleString("he-IL", {
           timeZone: "Asia/Jerusalem",
         })
         .replace(", ", " | ");
-      // const entry = `${geo.country} | ${geo.city} | ${time}`;
-      redis.RPUSH(dbStats, time);
+      const entry = `${geo.country} | ${geo.city} | ${time}`;
+      redis.RPUSH(dbStats, entry);
     }
     res.sendFile(path.join(__dirname, "/../../", "public", "index.html"));
   });

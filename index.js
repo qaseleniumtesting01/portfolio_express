@@ -23,7 +23,7 @@ const routerWrapper = require("./routes/api/router");
 const app = express();
 
 // when server is behind a proxy
-// app.enable("trust proxy");
+app.enable("trust proxy");
 
 // Init Redis
 let client;
