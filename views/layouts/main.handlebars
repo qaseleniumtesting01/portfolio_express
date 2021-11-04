@@ -3,7 +3,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <link
       rel="stylesheet"
       href="https://bootswatch.com/5/cyborg/bootstrap.min.css"
@@ -11,9 +10,7 @@
     <title>Mangement</title>
   </head>
   <body class="bg-grey text-white">
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-
       <div class="container">
         <a class="navbar-brand" href="#">Management</a>
         <button
@@ -69,13 +66,45 @@
     </nav>
 
     <div class="container">
-      {{{body}}}<div class="text-right text-center"><a
-          href="/"
-          class="btn btn-outline-success my-3"
-        >Ladzaretti</a></div>
-    </div>
+      {{{body}}}
 
+    </div>
   </body>
+  <footer
+    id="contact"
+    class="w-100 d-flex fixed-bottom flex-shrink-0 quicksand-font overflow-hidden"
+  >
+    <div class="container">
+      <hr class="bg-danger border-3 border-bottom border-secondary" />
+      <div class="pt-1 pb-3 m-auto text-center">
+        <a href="/" class="btn btn-outline-success px-3">Ladzaretti</a>
+        <button
+          type="button"
+          class="btn btn-outline-info px-3"
+          onclick="history.back()"
+        >
+          Back
+        </button>
+      </div>
+      <div class="row pb-4 px-5">
+        <p class="small text-muted mb-0 text-center">
+          Analytics Management Section
+        </p>
+        <div class="col text-center m-auto">
+          <ul class="small list-unstyled mb-0 text-muted">
+            <li>
+              <a class="text-decoration-none mb-0 link-secondary" href="/"><span
+                >
+                  https://ladzaretti.herokuapp.com/</span></a>
+            </li>
+          </ul>
+          <p class="small text-muted mb-0 mt-2 text-center">
+            2021 &copy; Copyrights. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
