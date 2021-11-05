@@ -36,7 +36,7 @@ function wrapper(redis, dbStats, dbMail, auth, mgmtRoute) {
       const entry = `${geo.country} | ${geo.city} | ${time}`;
       redis.RPUSH(dbStats, entry);
     }
-    res.sendFile(path.join(__dirname, "/../../", "public", "index.html"));
+    res.sendFile(path.join(__dirname, "/../", "public", "index.html"));
   });
 
   // Contact Me Form handler
