@@ -1,6 +1,6 @@
 const path = require("path");
 const express = require("express");
-const createMailer = require("../../utils/create-mailer");
+const createMailer = require("../utils/create-mailer");
 const crypto = require("crypto");
 const geoip = require("geoip-lite");
 const MIN = 1000 * 60;

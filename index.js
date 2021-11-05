@@ -17,7 +17,7 @@ const TIMEOUT = MIN * 10;
 const PORT = process.env.PORT || 5000;
 
 // const TIMEOUT = 10 * 1000;
-const routerWrapper = require("./routes/api/router");
+const routerWrapper = require("./routes/router");
 
 // Init app
 const app = express();
