@@ -23,7 +23,7 @@ function wrapper(redis, dbStats, dbMail, auth, mgmtRoute) {
         expires: new Date(Date.now() + MIN * 10),
       });
       // Update Stats list
-      let ip = process.env.NODE === "production" ? req.ip : "45.20.20.40";
+      let ip = process.env.NODE_ENV === "production" ? req.ip : "45.20.20.40";
       if (ip.substr(0, 7) == "::ffff:") {
         ip = ip.substr(7);
       }

@@ -59,7 +59,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Redirect http to https requests
-if (process.env.NODE === "production")
+if (process.env.NODE_ENV === "production")
   app.use((req, res, next) => {
     if (req.header("x-forwarded-proto") !== "https") {
       res.redirect(`https://${req.header("host")}${req.url}`);
@@ -69,7 +69,7 @@ if (process.env.NODE === "production")
   });
 
 // Use heroku env variables as nodemailer options
-if (process.env.NODE !== "production") require("dotenv").config();
+if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const auth = {
   email: process.env.MAIL_USER,
   password: process.env.MAIL_PASS,
