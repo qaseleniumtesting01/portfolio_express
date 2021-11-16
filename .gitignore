@@ -4,3 +4,4 @@
 /public/temp
 dump.rdb
 /public/js/reg.js
+.env

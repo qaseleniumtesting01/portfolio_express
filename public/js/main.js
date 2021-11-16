@@ -31,7 +31,6 @@ const darkBackgroundModes = [
   "#E74C3C", // Cinnabar
   "#9B59B6", // Wisteria
   "#E67E22", // Zest
-  "#282C34", // day
 ];
 const lightBackgroundModes = [
   // "#FAFAFA", // night

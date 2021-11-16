@@ -9,7 +9,8 @@
 \from the Open University of Israel.|500|\
 
 \|700|Contact me|500| &\
-\let's code togather!|500|\
+\let's work togather!|500|\
+
 
 
 Desktop:~gbi$\

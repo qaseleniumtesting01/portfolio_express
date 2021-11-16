@@ -42,17 +42,6 @@ client.on("error", (err) => {
   console.log("Error " + err);
 });
 
-// Mail daily report
-setInterval(() => {
-  redis.GET(REDIS_MAIL_LIST, (err, data) => {
-    sendMail(
-      `${process.env.MAIL_RECIPIENT}`,
-      "Daily Report",
-      `Total Visitors:${data}`
-    );
-  });
-}, HOUR * 24);
-
 // Init handlebars
 app.engine(
   "handlebars",
@@ -70,15 +59,17 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Redirect http to https requests
-app.use((req, res, next) => {
-  if (req.header("x-forwarded-proto") !== "https") {
-    res.redirect(`https://${req.header("host")}${req.url}`);
-  } else {
-    next();
-  }
-});
+if (process.env.NODE === "production")
+  app.use((req, res, next) => {
+    if (req.header("x-forwarded-proto") !== "https") {
+      res.redirect(`https://${req.header("host")}${req.url}`);
+    } else {
+      next();
+    }
+  });
 
 // Use heroku env variables as nodemailer options
+if (process.env.NODE !== "production") require("dotenv").config();
 const auth = {
   email: process.env.MAIL_USER,
   password: process.env.MAIL_PASS,
@@ -91,6 +82,17 @@ const sendMail = createMailer(
   },
   auth
 );
+
+// Mail daily report
+setInterval(() => {
+  redis.GET(REDIS_MAIL_LIST, (err, data) => {
+    sendMail(
+      `${process.env.MAIL_RECIPIENT}`,
+      "Daily Report",
+      `Total Visitors:${data}`
+    );
+  });
+}, HOUR * 24);
 
 // Set router
 app.use(
