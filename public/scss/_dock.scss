@@ -1,5 +1,17 @@
 // macOS "big sur" like css dock
 
+.init-dock-show {
+  .li-5 {
+    margin: 0px 15px 0px 15px;
+    .name {
+      visibility: visible;
+    }
+    .ico {
+      transform: scale(1.5) translateY(-10px);
+    }
+  }
+}
+
 .dock {
   position: absolute;
   margin: auto;
@@ -79,7 +91,7 @@
     }
   }
 
-  @for $i from 1 through 15 {
+  @for $i from 1 through 5 {
     .li-#{$i}:hover {
       .name {
         visibility: visible;

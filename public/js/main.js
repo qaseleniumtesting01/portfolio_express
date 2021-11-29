@@ -34,10 +34,10 @@ const darkBackgroundModes = [
 ];
 const lightBackgroundModes = [
   // "#FAFAFA", // night
-  "#FFCDD2", // Pastel Pink
-  "#E1BEE7", // French Lilac
   "#C8E6C9", // Zanah
   "#B3E5FC", // French Pass
+  "#FFCDD2", // Pastel Pink
+  "#E1BEE7", // French Lilac
   "#FFF9C4", // Lemon Chiffon
 ];
 
@@ -183,7 +183,7 @@ function showElm() {
   document.querySelector(".back-title").classList.toggle("text-dark");
   terminal.classList.add("fade-in-animation");
   toggleDisplay(terminal, "block");
-  typewriterFetch(".typewriter", "assets/txt/showcase-text.txt", 40, 2400);
+  typewriterFetch(".typewriter", "assets/txt/showcase-text.txt", 30, 2000);
   // init terminal title - "bash" size
   setTimeout(() => {
     updateBashSize();

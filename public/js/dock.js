@@ -1,5 +1,5 @@
-let icons = document.querySelectorAll(".ico");
-
+const icons = document.querySelectorAll(".ico");
+const dock = document.querySelector(".dock");
 icons.forEach((item, index) => {
   item.addEventListener("mouseover", (e) => {
     focus(e.target, index);
@@ -12,6 +12,7 @@ icons.forEach((item, index) => {
 });
 
 const focus = (elem, index) => {
+  dock.classList.toggle("init-dock-show", false);
   let prev = index - 1;
   let prevPrev = index - 2;
   let next = index + 1;
@@ -27,5 +28,10 @@ const focus = (elem, index) => {
     if (nextNext < icons.length) icons[nextNext].style.transform = "scale(1.1)";
   }
 };
+
+dock.classList.toggle("init-dock-show", true);
+setTimeout(() => {
+  dock.classList.toggle("init-dock-show", false);
+}, 7000);
 
 // console.info("dock.js script loaded");

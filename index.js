@@ -1,4 +1,5 @@
 const path = require("path");
+const http = require("http");
 const url = require("url");
 const express = require("express");
 const redis = require("redis");
@@ -83,8 +84,34 @@ const sendMail = createMailer(
   auth
 );
 
+// Ping self
+const pingSelf = () => {
+  const options = {
+    host: process.env.HOST,
+    port: 80,
+    path: "/",
+  };
+  http.get(options, (res) => {
+    res
+      .on("data", (chunk) => {
+        try {
+          console.log("HEROKU RESPONSE: " + chunk);
+        } catch (err) {
+          console.log(err.message);
+        }
+      })
+      .on("error", function (err) {
+        console.log("Error: " + err.message);
+      });
+  });
+};
+
+if (process.env.NODE_ENV === "production") {
+  setInterval(pingSelf, MIN * 20);
+}
+
 // Mail daily report
-setInterval(() => {
+const getDailyReport = () => {
   redis.GET(REDIS_MAIL_LIST, (err, data) => {
     sendMail(
       `${process.env.MAIL_RECIPIENT}`,
@@ -92,7 +119,8 @@ setInterval(() => {
       `Total Visitors:${data}`
     );
   });
-}, HOUR * 24);
+};
+setInterval(getDailyReport, HOUR * 24);
 
 // Set router
 app.use(
